@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release Win32" />
+	<File name="actions.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="2743" topLine="0" />
+	</File>
+	<File name="application.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="2171" topLine="102" />
+	</File>
+	<File name="gui.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="16780" topLine="561" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="mvg_autocalibration.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="0" topLine="96" />
+	</File>
+	<File name="mvg_camera.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="0" topLine="36" />
+	</File>
+	<File name="mvg_matching.cpp" open="1" top="1" tabpos="9">
+		<Cursor position="3160" topLine="138" />
+	</File>
+	<File name="sift_win/imgfeatures.c" open="1" top="0" tabpos="1">
+		<Cursor position="0" topLine="72" />
+	</File>
+	<File name="sift_win/kdtree.c" open="1" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="sift_win/minpq.c" open="1" top="0" tabpos="3">
+		<Cursor position="0" topLine="21" />
+	</File>
+	<File name="sift_win/sift.c" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="24" />
+	</File>
+	<File name="tool_image.cpp" open="1" top="0" tabpos="15">
+		<Cursor position="0" topLine="81" />
+	</File>
+	<File name="tool_matching.cpp" open="1" top="0" tabpos="14">
+		<Cursor position="0" topLine="102" />
+	</File>
+	<File name="tool_triangulation.cpp" open="1" top="0" tabpos="13">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="ui_epipolars.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="0" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="insight3d" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release Win32">
+				<Option output="insight3d" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release Win32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-W" />
+					<Add option="-O2" />
+					<Add directory="./ann_1.1.1/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="./ann_1.1.1/include" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="cv" />
+					<Add library="cvcam" />
+					<Add library="highgui" />
+					<Add library="cxcore" />
+					<Add library="cvaux" />
+					<Add library="libxml2" />
+					<Add library="zdll" />
+					<Add library="iconv" />
+					<Add library="SDL" />
+					<Add library="SDLmain" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+					<Add library="pthreadVC2" />
+					<Add library="lapack/clapack" />
+					<Add library="lapack/blas" />
+					<Add library="lapack/libF77" />
+					<Add library="lapack/libI77" />
+					<Add library="sba/sba" />
+					<Add library="ann_1.1.1/MS_Win32/dll/Release/ANN" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="actions.cpp" />
+		<Unit filename="application.cpp" />
+		<Unit filename="core_constants.cpp" />
+		<Unit filename="core_debug.cpp" />
+		<Unit filename="core_image_loader.cpp" />
+		<Unit filename="core_math_routines.cpp" />
+		<Unit filename="core_state.cpp" />
+		<Unit filename="core_structures.cpp" />
+		<Unit filename="cv_extensions.cpp" />
+		<Unit filename="geometry_export.cpp" />
+		<Unit filename="geometry_loader.cpp" />
+		<Unit filename="geometry_publish.cpp" />
+		<Unit filename="geometry_queries.cpp" />
+		<Unit filename="geometry_routines.cpp" />
+		<Unit filename="geometry_structures.cpp" />
+		<Unit filename="geometry_textures.cpp" />
+		<Unit filename="gui.cpp" />
+		<Unit filename="gui_style.cpp" />
+		<Unit filename="sift_win/imgfeatures.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="interface_filesystem.cpp" />
+		<Unit filename="interface_opencv.cpp" />
+		<Unit filename="interface_opengl.cpp" />
+		<Unit filename="interface_sdl.cpp" />
+		<Unit filename="sift_win/kdtree.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.cpp" />
+		<Unit filename="sift_win/minpq.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mvg_autocalibration.cpp" />
+		<Unit filename="mvg_camera.cpp" />
+		<Unit filename="mvg_decomposition.cpp" />
+		<Unit filename="mvg_matching.cpp" />
+		<Unit filename="mvg_normalization.cpp" />
+		<Unit filename="mvg_resection.cpp" />
+		<Unit filename="mvg_triangulation.cpp" />
+		<Unit filename="sift_win/sift.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tool_calibration.cpp" />
+		<Unit filename="tool_coordinates.cpp" />
+		<Unit filename="tool_core.cpp" />
+		<Unit filename="tool_edit.cpp" />
+		<Unit filename="tool_extrude.cpp" />
+		<Unit filename="tool_file.cpp" />
+		<Unit filename="tool_image.cpp" />
+		<Unit filename="tool_matching.cpp" />
+		<Unit filename="tool_plane_extraction.cpp" />
+		<Unit filename="tool_points.cpp" />
+		<Unit filename="tool_polygons.cpp" />
+		<Unit filename="tool_resection.cpp" />
+		<Unit filename="tool_selection.cpp" />
+		<Unit filename="tool_triangulation.cpp" />
+		<Unit filename="ui_constants.cpp" />
+		<Unit filename="ui_context.cpp" />
+		<Unit filename="ui_core.cpp" />
+		<Unit filename="ui_epipolars.cpp" />
+		<Unit filename="ui_events.cpp" />
+		<Unit filename="ui_inspection_mode.cpp" />
+		<Unit filename="ui_list.cpp" />
+		<Unit filename="ui_selection.cpp" />
+		<Unit filename="ui_shot_mode.cpp" />
+		<Unit filename="ui_state.cpp" />
+		<Unit filename="ui_visualization.cpp" />
+		<Unit filename="ui_visualization_helpers.cpp" />
+		<Unit filename="ui_visualization_point.cpp" />
+		<Unit filename="ui_workflow.cpp" />
+		<Unit filename="sift_win/utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
