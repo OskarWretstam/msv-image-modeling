@@ -23,7 +23,7 @@ sift_detector:
 	g++ $(CPP_FLAGS) -c `pkg-config --cflags opencv libxml-2.0 sdl gtk+-2.0` $(ANN_INCLUDE) $<
 
 clean: 
-	rm *.o
-	rm ./insight3d
+	rm -f *.o
+	rm -f ./insight3d
 
 

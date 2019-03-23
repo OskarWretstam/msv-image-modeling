@@ -84,7 +84,7 @@ bool main_loop()
 extern "C" struct ag_objectq agTimeoutObjQ;
 bool main_loop()
 {
-	bool is_active = true;
+   bool is_active = true;
 	Uint32 timestamp1 = SDL_GetTicks(), timestamp2 = 0;
 
 	while (core_state.running)

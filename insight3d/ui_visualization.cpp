@@ -29,8 +29,7 @@ Visualization_State visualization_state;
 // initialize visualization
 bool visualization_initialize()
 {
-        printf("ui visualization initialize; File:ui_visualization.cpp\n
-");
+        printf("ui visualization initialize; File:ui_visualization.cpp\n");
 
 	memset(&visualization_state, 0, sizeof(Visualization_State));
 	DYN(ui_state.groups, 0);
