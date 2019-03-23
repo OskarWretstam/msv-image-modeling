@@ -226,7 +226,7 @@ bool geometry_export_vrml(const char * filename, Vertices & vertices, Polygons_3
 		bool * used = ALLOC(bool, vertices.count);
 		memset(used, 0, sizeof(bool) * vertices.count);
 		size_t * ids = ALLOC(size_t, vertices.count);
-		memset(ids, SIZE_MAX, sizeof(size_t) * vertices.count);
+		memset(ids, std::numeric_limits<std::size_t>::max(), sizeof(size_t) * vertices.count);
 		size_t count = 0;
 
 		for ALL(polygons, i)
@@ -356,7 +356,7 @@ bool geometry_export_sandy3d(const char * filename, Vertices & vertices, Polygon
 	bool * used = ALLOC(bool, vertices.count);
 	memset(used, 0, sizeof(bool) * vertices.count);
 	size_t * ids = ALLOC(size_t, vertices.count);
-	memset(ids, SIZE_MAX, sizeof(size_t) * vertices.count);
+	memset(ids, std::numeric_limits<std::size_t>::max(), sizeof(size_t) * vertices.count);
 	size_t count = 0;
 
 	for ALL(polygons, i)

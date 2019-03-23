@@ -24,6 +24,7 @@
 #include "stdio.h"
 #include "pthread.h"
 #include "cv.h"
+#include "cv.hpp"
 #include "highgui.h"
 
 const double OPENCV_PI = 3.14159265358979323846;
