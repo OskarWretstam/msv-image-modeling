@@ -1,7 +1,7 @@
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(patsubst %.cpp,%.o,$(SOURCES))
 ANN_INCLUDE= -I./ann_1.1.1/include/
-CPP_FLAGS=-O3 -I/usr/include/SDL2/ -I/usr/local/OpenCV/opencv-3.2.0/include/opencv/ -I/usr/local/OpenCV/opencv-3.2.0/modules/core/include/
+CPP_FLAGS=-O3
 
 all: insight3d
 

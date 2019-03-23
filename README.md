@@ -13,6 +13,7 @@ To compile insight3dng under Linux, you must have the following libraries:
 	- lapack and blas (to do some math)
 	- libgtk+-2.0
 
-And this should be pretty much everything. Also, pkg-config should know about those libraries. 
+Also, pkg-config should know about those libraries. 
 
-Makefile and source code is in the "insight3d" subdirectory. There's no configuration, just execute "make" in the "insight3d" subdirectory. 
+To build, run make in insight3d subdirectory.
+For issues with dependecies refer to build-deps.txt
