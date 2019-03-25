@@ -1,6 +1,6 @@
 /*
   Functions and structures for implementing a minimizing priority queue.
-  
+
   Copyright (C) 2006-2007  Rob Hess <hess@eecs.oregonstate.edu>
 
   @version 1.1.1-20070913
@@ -76,7 +76,7 @@ int minpq_insert( struct min_pq* min_pq, void* data, int key )
   /* double array allocation if necessary */
   if( min_pq->nallocd == n )
     {
-      min_pq->nallocd = array_double( &min_pq->pq_array, min_pq->nallocd,
+       min_pq->nallocd = array_double( (void **) &min_pq->pq_array, min_pq->nallocd,
 				      sizeof( struct pq_node ) );
       if( ! min_pq->nallocd )
 	{
@@ -99,9 +99,9 @@ int minpq_insert( struct min_pq* min_pq, void* data, int key )
 /*
   Returns the element of a minimizing priority queue with the smallest key
   without removing it from the queue.
-  
+
   @param min_pq a minimizing priority queue
-  
+
   @return Returns the element of \a min_pq with the smallest key or NULL
     if \a min_pq is empty
 */
@@ -120,9 +120,9 @@ void* minpq_get_min( struct min_pq* min_pq )
 /*
   Removes and returns the element of a minimizing priority queue with the
   smallest key.
-  
+
   @param min_pq a minimizing priority queue
-  
+
   @return Returns the element of \a min_pq with the smallest key of NULL
     if \a min_pq is empty
 */
@@ -146,7 +146,7 @@ void* minpq_extract_min( struct min_pq* min_pq )
 
 /*
   De-allocates the memory held by a minimizing priorioty queue
-  
+
   @param min_pq pointer to a minimizing priority queue
 */
 void minpq_release( struct min_pq** min_pq )
