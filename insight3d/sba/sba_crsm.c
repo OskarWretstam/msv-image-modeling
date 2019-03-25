@@ -22,8 +22,8 @@
 
 #include "sba.h"
 
-static void sba_crsm_print(struct sba_crsm *sm, FILE *fp);
-static void sba_crsm_build(struct sba_crsm *sm, int *m, int nr, int nc);
+// static void sba_crsm_print(struct sba_crsm *sm, FILE *fp);
+// static void sba_crsm_build(struct sba_crsm *sm, int *m, int nr, int nc);
 
 /* allocate a sparse CRS matrix */
 void sba_crsm_alloc(struct sba_crsm *sm, int nr, int nc, int nnz)
