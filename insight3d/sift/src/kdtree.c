@@ -1,14 +1,14 @@
 /*
   Functions and structures for maintaining a k-d tree database of image
   features.
-  
+
   For more information, refer to:
-  
+
   Beis, J. S. and Lowe, D. G.  Shape indexing using approximate
   nearest-neighbor search in high-dimensional spaces.  In <EM>Conference
   on Computer Vision and Pattern Recognition (CVPR)</EM> (2003),
   pp. 1000--1006.
-  
+
   Copyright (C) 2006-2007  Rob Hess <hess@eecs.oregonstate.edu>
 
   @version 1.1.1-20070913
@@ -50,10 +50,10 @@ int within_rect( CvPoint2D64f, CvRect );
 
 /*
   A function to build a k-d tree database from keypoints in an array.
-  
+
   @param features an array of features
   @param n the number of features in features
-  
+
   @return Returns the root of a kd tree built from features or NULL on
     error.
 */
@@ -79,14 +79,14 @@ struct kd_node* kdtree_build( struct feature* features, int n )
 /*
   Finds an image feature's approximate k nearest neighbors in a kd tree using
   Best Bin First search.
-  
+
   @param kd_root root of an image feature kd tree
   @param feat image feature for whose neighbors to search
   @param k number of neighbors to find
    @param nbrs pointer to an array in which to store pointers to neighbors
      in order of increasing descriptor distance
   @param max_nn_chks search is cut off after examining this many tree entries
-  
+
   @return Returns the number of neighbors found and stored in nbrs, or
     -1 on error.
 */
@@ -173,7 +173,7 @@ int kdtree_bbf_knn( struct kd_node* kd_root, struct feature* feat, int k,
 /*
   Finds an image feature's approximate k nearest neighbors within a specified
   spatial region in a kd tree using Best Bin First search.
-  
+
   @param kd_root root of an image feature kd tree
   @param feat image feature for whose neighbors to search
   @param k number of neighbors to find
@@ -183,7 +183,7 @@ int kdtree_bbf_knn( struct kd_node* kd_root, struct feature* feat, int k,
    @param rect rectangular region in which to search for neighbors
    @param model if true, spatial search is based on kdtree features' model
      locations; otherwise it is based on their image locations
-   
+
    @return Returns the number of neighbors found and stored in \a nbrs
      (in case \a k neighbors could not be found before examining
      \a max_nn_checks keypoint entries).
@@ -222,7 +222,7 @@ int kdtree_bbf_spatial_knn( struct kd_node* kd_root, struct feature* feat,
 
 /*
   De-allocates memory held by a kd tree
-  
+
   @param kd_root pointer to the root of a kd tree
 */
 void kdtree_release( struct kd_node* kd_root )
@@ -241,7 +241,7 @@ void kdtree_release( struct kd_node* kd_root )
 /*
   Initializes a kd tree node with a set of features.  The node is not
   expanded, and no ordering is imposed on the features.
-  
+
   @param features an array of image features
   @param n number of features
 
@@ -363,7 +363,7 @@ double median_select( double* array, int n )
   @param array an array; the order of its elelemts is reordered
   @param n number of elements in array
   @param r the zero-based rank of the element to be selected
-  
+
   @return Returns the element from array with zero-based rank r.
 */
 double rank_select( double* array, int n, int r )
@@ -377,7 +377,7 @@ double rank_select( double* array, int n, int r )
 
   /* divide array into groups of 5 and sort them */
   gr_5 = n / 5;
-  gr_tot = cvCeil( n / 5.0 );
+  gr_tot = ceil( n / 5.0 );
   rem_elts = n % 5;
   tmp = array;
   for( i = 0; i < gr_5; i++ )
@@ -395,7 +395,7 @@ double rank_select( double* array, int n, int r )
     tmp[i++] = array[n - 1 - rem_elts/2];
   med = rank_select( tmp, i, ( i - 1 ) / 2 );
   free( tmp );
-  
+
   /* partition around median of medians and recursively select if necessary */
   j = partition_array( array, n, med );
   if( r == j )
@@ -463,7 +463,7 @@ int partition_array( double* array, int n, double pivot )
       }
   array[p] = array[i];
   array[i] = pivot;
-  
+
   return i;
 }
 
@@ -517,7 +517,7 @@ void partition_features( struct kd_node* kd_node )
   examined but not explored is put into a priority queue to be explored
   later, keyed based on the distance from its partition key value to the
   given feature's desctiptor.
-  
+
   @param kd_node root of the subtree to be explored
   @param feat feature upon which branching decisions are based
   @param min_pq a minimizing priority queue into which tree nodes are placed
@@ -537,7 +537,7 @@ struct kd_node* explore_to_leaf( struct kd_node* kd_node, struct feature* feat,
     {
       ki = expl->ki;
       kv = expl->kv;
-      
+
       if( ki >= feat->d )
 	{
 	  fprintf( stderr, "Warning: comparing imcompatible descriptors, %s" \
@@ -554,7 +554,7 @@ struct kd_node* explore_to_leaf( struct kd_node* kd_node, struct feature* feat,
 	  unexpl = expl->kd_left;
 	  expl = expl->kd_right;
 	}
-      
+
       if( minpq_insert( min_pq, unexpl, ABS( kv - feat->descr[ki] ) ) )
 	{
 	  fprintf( stderr, "Warning: unable to insert into PQ, %s, line %d\n",

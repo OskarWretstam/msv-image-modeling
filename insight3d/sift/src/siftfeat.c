@@ -1,10 +1,10 @@
 /*
   This program detects image features using SIFT keypoints. For more info,
   refer to:
-  
+
   Lowe, D. Distinctive image features from scale-invariant keypoints.
   International Journal of Computer Vision, 60, 2 (2004), pp.91--110.
-  
+
   Copyright (C) 2006-2007  Rob Hess <hess@eecs.oregonstate.edu>
 
   Note: The SIFT algorithm is patented in the United States and cannot be
@@ -63,7 +63,7 @@ int main( int argc, char** argv )
   n = _sift_features( img, &features, intvls, sigma, contr_thr, curv_thr,
 		      img_dbl, descr_width, descr_hist_bins );
   fprintf( stderr, "Found %d features.\n", n );
-  
+
   if( display )
     {
       draw_features( img, features, n );
@@ -120,7 +120,7 @@ void usage( char* name )
 
 /*
   arg_parse() parses the command line arguments, setting appropriate globals.
-  
+
   argc and argv should be passed directly from the command line
 */
 void arg_parse( int argc, char** argv )
@@ -159,91 +159,91 @@ void arg_parse( int argc, char** argv )
 			 "Try '%s -h' for help.", arg, pname );
 	  out_img_name = optarg;
 	  break;
-	  
+
 	  // read intervals
 	case 'i':
 	  // ensure argument provided
 	  if( ! optarg )
 	    fatal_error( "error parsing arguments at -%c\n"	\
 			 "Try '%s -h' for help.", arg, pname );
-	  
+
 	  // parse argument and ensure it is an integer
 	  intvls = strtol( optarg, &arg_check, 10 );
 	  if( arg_check == optarg  ||  *arg_check != '\0' )
 	    fatal_error( "-%c option requires an integer argument\n"	\
 			 "Try '%s -h' for help.", arg, pname );
 	  break;
-	  
+
 	  // read sigma
 	case 's' :
 	  // ensure argument provided
 	  if( ! optarg )
 	    fatal_error( "error parsing arguments at -%c\n"	\
 			 "Try '%s -h' for help.", arg, pname );
-	  
+
 	  // parse argument and ensure it is a floating point number
 	  sigma = strtod( optarg, &arg_check );
 	  if( arg_check == optarg  ||  *arg_check != '\0' )
 	    fatal_error( "-%c option requires a floating point argument\n" \
 			 "Try '%s -h' for help.", arg, pname );
 	  break;
-	  
+
 	  // read contrast_thresh
 	case 'c' :
 	  // ensure argument provided
 	  if( ! optarg )
 	    fatal_error( "error parsing arguments at -%c\n"	\
 			 "Try '%s -h' for help.", arg, pname );
-	  
+
 	  // parse argument and ensure it is a floating point number
 	  contr_thr = strtod( optarg, &arg_check );
 	  if( arg_check == optarg  ||  *arg_check != '\0' )
 	    fatal_error( "-%c option requires a floating point argument\n" \
 			 "Try '%s -h' for help.", arg, pname );
 	  break;
-	  
+
 	  // read curvature_thresh
 	case 'r' :
 	  // ensure argument provided
 	  if( ! optarg )
 	    fatal_error( "error parsing arguments at -%c\n"	\
 			 "Try '%s -h' for help.", arg, pname );
-	  
+
 	  // parse argument and ensure it is a floating point number
 	  curv_thr = strtol( optarg, &arg_check, 10 );
 	  if( arg_check == optarg  ||  *arg_check != '\0' )
 	    fatal_error( "-%c option requires an integer argument\n"	\
 			 "Try '%s -h' for help.", arg, pname );
 	  break;
-	  
+
 	  // read descr_width
 	case 'n' :
 	  // ensure argument provided
 	  if( ! optarg )
 	    fatal_error( "error parsing arguments at -%c\n"	\
 			 "Try '%s -h' for help.", arg, pname );
-	  
+
 	  // parse argument and ensure it is a floating point number
 	  descr_width = strtol( optarg, &arg_check, 10 );
 	  if( arg_check == optarg  ||  *arg_check != '\0' )
 	    fatal_error( "-%c option requires an integer argument\n"	\
 			 "Try '%s -h' for help.", arg, pname );
 	  break;
-	  
+
 	  // read descr_histo_bins
 	case 'b' :
 	  // ensure argument provided
 	  if( ! optarg )
 	    fatal_error( "error parsing arguments at -%c\n"	\
 			 "Try '%s -h' for help.", arg, pname );
-	  
+
 	  // parse argument and ensure it is a floating point number
 	  descr_hist_bins = strtol( optarg, &arg_check, 10 );
 	  if( arg_check == optarg  ||  *arg_check != '\0' )
 	    fatal_error( "-%c option requires an integer argument\n"	\
 			 "Try '%s -h' for help.", arg, pname );
 	  break;
-	  
+
 	  // read double_image
 	case 'd' :
 	  img_dbl = ( img_dbl == 1 )? 0 : 1;

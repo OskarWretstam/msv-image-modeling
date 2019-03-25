@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////
-//// 
+////
 ////  Simple drivers for sparse bundle adjustment based on the
 ////  Levenberg - Marquardt minimization algorithm
 ////  This file provides simple wrappers to the functions defined in sba_levmar.c
@@ -56,7 +56,7 @@ struct wrap_str_data_ {
  * makes use of user-supplied functions computing "Q", "dQ/da", d"Q/db",
  * i.e. predicted projection and associated jacobians for a SINGLE image measurement.
  * Notice also that what follows is two pairs of "func" and corresponding "fjac" routines.
- * The first is to be used in full (i.e. motion + structure) BA, the second in 
+ * The first is to be used in full (i.e. motion + structure) BA, the second in
  * motion only BA.
  */
 
@@ -73,9 +73,9 @@ struct wrap_str_data_ {
 static void sba_motstr_Qs(double *p, struct sba_crsm *idxij, int *rcidxs, int *rcsubs, double *hx, void *adata)
 {
   register int i, j;
-  int cnp, pnp, mnp; 
+  int cnp, pnp, mnp;
   double *pa, *pb, *paj, *pbi, *pxij;
-  int n, m, nnz;
+  int m, nnz;
   struct wrap_motstr_data_ *wdata;
   void (*proj)(int j, int i, double *aj, double *bi, double *xij, void *proj_adata);
   void *proj_adata;
@@ -85,7 +85,7 @@ static void sba_motstr_Qs(double *p, struct sba_crsm *idxij, int *rcidxs, int *r
   proj=wdata->proj;
   proj_adata=wdata->adata;
 
-  n=idxij->nr; m=idxij->nc;
+  m=idxij->nc;
   pa=p; pb=p+m*cnp;
 
   for(j=0; j<m; ++j){
@@ -116,18 +116,18 @@ static void sba_motstr_Qs_jac(double *p, struct sba_crsm *idxij, int *rcidxs, in
   register int i, j;
   int cnp, pnp, mnp;
   double *pa, *pb, *paj, *pbi, *pAij, *pBij;
-  int n, m, nnz, Asz, Bsz, ABsz, idx;
+  int m, nnz, Asz, Bsz, ABsz, idx;
   struct wrap_motstr_data_ *wdata;
   void (*projac)(int j, int i, double *aj, double *bi, double *Aij, double *Bij, void *projac_adata);
   void *projac_adata;
 
-  
+
   wdata=(struct wrap_motstr_data_ *)adata;
   cnp=wdata->cnp; pnp=wdata->pnp; mnp=wdata->mnp;
   projac=wdata->projac;
   projac_adata=wdata->adata;
 
-  n=idxij->nr; m=idxij->nc;
+  m=idxij->nc;
   pa=p; pb=p+m*cnp;
   Asz=mnp*cnp; Bsz=mnp*pnp; ABsz=Asz+Bsz;
 
@@ -271,7 +271,7 @@ static void sba_motstr_Qs_fdjac(
 static void sba_mot_Qs(double *p, struct sba_crsm *idxij, int *rcidxs, int *rcsubs, double *hx, void *adata)
 {
   register int i, j;
-  int cnp, mnp; 
+  int cnp, mnp;
   double *paj, *pxij;
   //int n;
   int m, nnz;
@@ -366,7 +366,7 @@ static void sba_mot_Qs_fdjac(
   register int i, j, ii, jj;
   double *paj;
   register double *pA;
-  //int n; 
+  //int n;
   int m, nnz, Asz;
 
   double tmp;
@@ -438,7 +438,7 @@ static void sba_mot_Qs_fdjac(
 static void sba_str_Qs(double *p, struct sba_crsm *idxij, int *rcidxs, int *rcsubs, double *hx, void *adata)
 {
   register int i, j;
-  int pnp, mnp; 
+  int pnp, mnp;
   double *pbi, *pxij;
   //int n;
   int m, nnz;
@@ -484,7 +484,7 @@ static void sba_str_Qs_jac(double *p, struct sba_crsm *idxij, int *rcidxs, int *
   void (*projac)(int j, int i, double *bi, double *Bij, void *projac_adata);
   void *projac_adata;
 
-  
+
   wdata=(struct wrap_str_data_ *)adata;
   pnp=wdata->pnp; mnp=wdata->mnp;
   projac=wdata->projac;
@@ -590,7 +590,7 @@ static void sba_str_Qs_fdjac(
 }
 
 
-/* 
+/*
  * Simple driver to sba_motstr_levmar_x for bundle adjustment on camera and structure parameters.
  *
  * Returns the number of iterations (>=0) if successfull, SBA_ERROR if failed
@@ -636,9 +636,9 @@ int sba_motstr_levmar(
                                                * matrices resp. and they should be stored in row-major order.
                                                *
                                                * If NULL, the jacobians are approximated by repetitive proj calls
-                                               * and finite differences. 
+                                               * and finite differences.
                                                */
-    void *adata,       /* pointer to possibly additional data, passed uninterpreted to proj, projac */ 
+    void *adata,       /* pointer to possibly additional data, passed uninterpreted to proj, projac */
 
     const int itmax,   /* I: maximum number of iterations. itmax==0 signals jacobian verification followed by immediate return */
     const int verbose, /* I: verbosity */
@@ -695,7 +695,7 @@ static void (*fjac)(double *p, struct sba_crsm *idxij, int *rcidxs, int *rcsubs,
 }
 
 
-/* 
+/*
  * Simple driver to sba_mot_levmar_x for bundle adjustment on camera parameters.
  *
  * Returns the number of iterations (>=0) if successfull, SBA_ERROR if failed
@@ -730,15 +730,15 @@ int sba_mot_levmar(
                                                * This function is called only if point i is visible in  image j (i.e. vmask[i, j]==1)
                                                */
     void (*projac)(int j, int i, double *aj, double *Aij, void *adata),
-                                              /* functional relation to evaluate d x_ij / d a_j in Aij 
+                                              /* functional relation to evaluate d x_ij / d a_j in Aij
                                                * This function is called only if point i is visible in image j
                                                * (i.e. vmask[i, j]==1). Also, A_ij are a mnp x cnp matrices
                                                * and should be stored in row-major order.
                                                *
                                                * If NULL, the jacobian is approximated by repetitive proj calls
-                                               * and finite differences. 
+                                               * and finite differences.
                                                */
-    void *adata,       /* pointer to possibly additional data, passed uninterpreted to proj, projac */ 
+    void *adata,       /* pointer to possibly additional data, passed uninterpreted to proj, projac */
 
     const int itmax,   /* I: maximum number of iterations. itmax==0 signals jacobian verification followed by immediate return */
     const int verbose, /* I: verbosity */
@@ -793,7 +793,7 @@ void (*fjac)(double *p, struct sba_crsm *idxij, int *rcidxs, int *rcsubs, double
   return retval;
 }
 
-/* 
+/*
  * Simple driver to sba_str_levmar_x for bundle adjustment on structure parameters.
  *
  * Returns the number of iterations (>=0) if successfull, SBA_ERROR if failed
@@ -832,9 +832,9 @@ int sba_str_levmar(
                                                * and they should be stored in row-major order.
                                                *
                                                * If NULL, the jacobians are approximated by repetitive proj calls
-                                               * and finite differences. 
+                                               * and finite differences.
                                                */
-    void *adata,       /* pointer to possibly additional data, passed uninterpreted to proj, projac */ 
+    void *adata,       /* pointer to possibly additional data, passed uninterpreted to proj, projac */
 
     const int itmax,   /* I: maximum number of iterations. itmax==0 signals jacobian verification followed by immediate return */
     const int verbose, /* I: verbosity */

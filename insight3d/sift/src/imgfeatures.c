@@ -7,9 +7,8 @@
 */
 
 #include "utils.h"
+#include "cv.h"
 #include "imgfeatures.h"
-
-#include <cxcore.h>
 
 int import_oxfd_features( char*, struct feature** );
 int export_oxfd_features( char*, struct feature*, int );
@@ -25,8 +24,8 @@ void draw_lowe_feature( IplImage*, struct feature*, CvScalar );
 /*
   Reads image features from file.  The file should be formatted as from
   the code provided by the Visual Geometry Group at Oxford:
-  
-  
+
+
   @param filename location of a file containing image features
   @param type determines how features are input.  If \a type is FEATURE_OXFD,
     the input file is treated as if it is from the code provided by the VGG
@@ -36,10 +35,10 @@ void draw_lowe_feature( IplImage*, struct feature*, CvScalar );
 
     If \a type is FEATURE_LOWE, the input file is treated as if it is from
     David Lowe's SIFT code:
-    
-    http://www.cs.ubc.ca/~lowe/keypoints  
+
+    http://www.cs.ubc.ca/~lowe/keypoints
   @param features pointer to an array in which to store features
-  
+
   @return Returns the number of features imported from filename or -1 on error
 */
 int import_features( char* filename, int type, struct feature** feat )
@@ -71,11 +70,11 @@ int import_features( char* filename, int type, struct feature** feat )
 /*
   Exports a feature set to a file formatted depending on the type of
   features, as specified in the feature struct's type field.
-  
+
   @param filename name of file to which to export features
   @param feat feature array
-  @param n number of features 
-    
+  @param n number of features
+
   @return Returns 0 on success or 1 on error
 */
 int export_features( char* filename, struct feature* feat, int n )
@@ -112,7 +111,7 @@ int export_features( char* filename, struct feature* feat, int n )
 
 /*
   Draws a set of features on an image
-  
+
   @param img image on which to draw features
   @param feat array of Oxford-type features
   @param n number of features
@@ -147,10 +146,10 @@ void draw_features( IplImage* img, struct feature* feat, int n )
 
 /*
   Calculates the squared Euclidian distance between two feature descriptors.
-  
+
   @param f1 first feature
   @param f2 second feature
-  
+
   @return Returns the squared Euclidian distance between the descriptors of
     f1 and f2.
 */
@@ -182,12 +181,12 @@ double descr_dist_sq( struct feature* f1, struct feature* f2 )
 /*
   Reads image features from file.  The file should be formatted as from
   the code provided by the Visual Geometry Group at Oxford:
-  
+
   http://www.robots.ox.ac.uk:5000/~vgg/research/affine/index.html
-  
+
   @param filename location of a file containing image features
   @param features pointer to an array in which to store features
-  
+
   @return Returns the number of features imported from filename or -1 on error
 */
 int import_oxfd_features( char* filename, struct feature** features )
@@ -219,7 +218,7 @@ int import_oxfd_features( char* filename, struct feature** features )
 	       __FILE__, __LINE__ );
       return -1;
     }
-  
+
 
   f = calloc( n, sizeof(struct feature) );
   for( i = 0; i < n; i++ )
@@ -239,7 +238,7 @@ int import_oxfd_features( char* filename, struct feature** features )
       f[i].c = c;
       f[i].d = d;
       f[i].type = FEATURE_OXFD;
-      
+
       /* read descriptor */
       for( j = 0; j < d; j++ )
 	{
@@ -278,13 +277,13 @@ int import_oxfd_features( char* filename, struct feature** features )
 /*
   Exports a feature set to a file formatted as one from the code provided
   by the Visual Geometry Group at Oxford:
-  
+
   http://www.robots.ox.ac.uk:5000/~vgg/research/affine/index.html
-  
+
   @param filename name of file to which to export features
   @param feat feature array
   @param n number of features
-  
+
   @return Returns 0 on success or 1 on error
 */
 int export_oxfd_features( char* filename, struct feature* feat, int n )
@@ -294,7 +293,7 @@ int export_oxfd_features( char* filename, struct feature* feat, int n )
 
   if( n <= 0 )
     {
-      fprintf( stderr, "Warning: feature count %d, %s, line %s\n",
+      fprintf( stderr, "Warning: feature count %d, %s, line %d\n",
 	       n, __FILE__, __LINE__ );
       return 1;
     }
@@ -329,7 +328,7 @@ int export_oxfd_features( char* filename, struct feature* feat, int n )
 
 /*
   Draws Oxford-type affine features
-  
+
   @param img image on which to draw features
   @param feat array of Oxford-type features
   @param n number of features
@@ -387,12 +386,12 @@ void draw_oxfd_feature( IplImage* img, struct feature* feat, CvScalar color )
 /*
   Reads image features from file.  The file should be formatted as from
   the code provided by David Lowe:
-  
+
   http://www.cs.ubc.ca/~lowe/keypoints/
-  
+
   @param filename location of a file containing image features
   @param features pointer to an array in which to store features
-  
+
   @return Returns the number of features imported from filename or -1 on error
 */
 int import_lowe_features( char* filename, struct feature** features )
@@ -480,13 +479,13 @@ int import_lowe_features( char* filename, struct feature** features )
 /*
   Exports a feature set to a file formatted as one from the code provided
   by David Lowe:
-  
+
   http://www.cs.ubc.ca/~lowe/keypoints/
-  
+
   @param filename name of file to which to export features
   @param feat feature array
   @param n number of features
-  
+
   @return Returns 0 on success or 1 on error
 */
 int export_lowe_features( char* filename, struct feature* feat, int n )
@@ -496,7 +495,7 @@ int export_lowe_features( char* filename, struct feature* feat, int n )
 
   if( n <= 0 )
     {
-      fprintf( stderr, "Warning: feature count %d, %s, line %s\n",
+      fprintf( stderr, "Warning: feature count %d, %s, line %d\n",
 	       n, __FILE__, __LINE__ );
       return 1;
     }
@@ -535,7 +534,7 @@ int export_lowe_features( char* filename, struct feature* feat, int n )
 
 /*
   Draws Lowe-type features
-  
+
   @param img image on which to draw features
   @param feat array of Oxford-type features
   @param n number of features
@@ -569,19 +568,19 @@ void draw_lowe_feature( IplImage* img, struct feature* feat, CvScalar color )
   CvPoint start, end, h1, h2;
 
   /* compute points for an arrow scaled and rotated by feat's scl and ori */
-  start_x = cvRound( feat->x );
-  start_y = cvRound( feat->y );
+  start_x = round( feat->x );
+  start_y = round( feat->y );
   scl = feat->scl;
   ori = feat->ori;
-  len = cvRound( scl * scale );
-  hlen = cvRound( scl * hscale );
+  len = round( scl * scale );
+  hlen = round( scl * hscale );
   blen = len - hlen;
-  end_x = cvRound( len *  cos( ori ) ) + start_x;
-  end_y = cvRound( len * -sin( ori ) ) + start_y;
-  h1_x = cvRound( blen *  cos( ori + CV_PI / 18.0 ) ) + start_x;
-  h1_y = cvRound( blen * -sin( ori + CV_PI / 18.0 ) ) + start_y;
-  h2_x = cvRound( blen *  cos( ori - CV_PI / 18.0 ) ) + start_x;
-  h2_y = cvRound( blen * -sin( ori - CV_PI / 18.0 ) ) + start_y;
+  end_x = round( len *  cos( ori ) ) + start_x;
+  end_y = round( len * -sin( ori ) ) + start_y;
+  h1_x = round( blen *  cos( ori + CV_PI / 18.0 ) ) + start_x;
+  h1_y = round( blen * -sin( ori + CV_PI / 18.0 ) ) + start_y;
+  h2_x = round( blen *  cos( ori - CV_PI / 18.0 ) ) + start_x;
+  h2_y = round( blen * -sin( ori - CV_PI / 18.0 ) ) + start_y;
   start = cvPoint( start_x, start_y );
   end = cvPoint( end_x, end_y );
   h1 = cvPoint( h1_x, h1_y );
@@ -591,5 +590,3 @@ void draw_lowe_feature( IplImage* img, struct feature* feat, CvScalar color )
   cvLine( img, end, h1, color, 1, 8, 0 );
   cvLine( img, end, h2, color, 1, 8, 0 );
 }
-
-

@@ -6,12 +6,12 @@
 //----------------------------------------------------------------------
 // Copyright (c) 1997-2005 University of Maryland and Sunil Arya and
 // David Mount.  All Rights Reserved.
-// 
+//
 // This software and related documentation is part of the Approximate
 // Nearest Neighbor Library (ANN).  This software is provided under
 // the provisions of the Lesser GNU Public License (LGPL).  See the
 // file ../ReadMe.txt for further information.
-// 
+//
 // The University of Maryland (U.M.) and the authors make no
 // representations about the suitability or fitness of this software for
 // any purpose.  It is provided "as is" without express or implied
@@ -63,7 +63,7 @@ using namespace std;					// make std:: available
 // Overview:
 // ---------
 // The test program is run as follows:
-// 
+//
 //		ann_test < test_input > test_output
 //
 // where the test_input file contains a list of directives as described
@@ -370,7 +370,7 @@ const char shrink_table[N_SHRINK_RULES][STRING_LEN] = {
 //----------------------------------------------------------------------
 
 void Error(								// error routine
-	char				*msg,			// error message
+	const char				*msg,			// error message
 	ANNerr				level)			// abort afterwards
 {
 	if (level == ANNabort) {
@@ -1088,7 +1088,7 @@ int main(int argc, char** argv)
 			//------------------------------------------------------------
 			//	Print summaries
 			//------------------------------------------------------------
-		
+
 			if (stats > SILENT) {
 				cout << "[Run Queries:\n";
 				cout << "  query_size    = " << query_size << "\n";
@@ -1305,7 +1305,7 @@ void readPts(
 	char ignore_me;								// character for EOF test
 	in_file >> ignore_me;						// try to get one more character
 	if (!in_file.eof()) {						// exhausted space before eof
-		if (type == DATA) 
+		if (type == DATA)
 			Error("`data_size' too small. Input file truncated.", ANNwarn);
 		else
 			Error("`query_size' too small. Input file truncated.", ANNwarn);

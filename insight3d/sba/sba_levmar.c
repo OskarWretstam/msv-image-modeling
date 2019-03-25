@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////
-//// 
+////
 ////  Expert drivers for sparse bundle adjustment based on the
 ////  Levenberg - Marquardt minimization algorithm
 ////  Copyright (C) 2004-2008 Manolis Lourakis (lourakis at ics forth gr)
@@ -67,7 +67,7 @@ void *ptr;
 
   ptr=(void *)malloc(sz);
   if(ptr==NULL){
-    fprintf(stderr, "SBA: memory allocation request for %u bytes failed in file %s, line %d, exiting", sz, file, line);
+    fprintf(stderr, "SBA: memory allocation request for %lu bytes failed in file %s, line %d, exiting", sz, file, line);
     exit(1);
   }
 
@@ -103,48 +103,48 @@ double err;
   return err/((double)(nprojs));
 }
 
-/* print the solution in p using sba's text format. If cnp/pnp==0 only points/cameras are printed */
-static void sba_print_sol(int n, int m, double *p, int cnp, int pnp, double *x, int mnp, struct sba_crsm *idxij, int *rcidxs, int *rcsubs)
-{
-register int i, j, ii;
-int nnz;
-double *ptr;
+// /* print the solution in p using sba's text format. If cnp/pnp==0 only points/cameras are printed */
+// static void sba_print_sol(int n, int m, double *p, int cnp, int pnp, double *x, int mnp, struct sba_crsm *idxij, int *rcidxs, int *rcsubs)
+// {
+// register int i, j, ii;
+// int nnz;
+// double *ptr;
 
-  if(cnp){
-    /* print camera parameters */
-    for(j=0; j<m; ++j){
-      ptr=p+cnp*j;
-      for(ii=0; ii<cnp; ++ii)
-        printf("%g ", ptr[ii]);
-      printf("\n");
-    }
-  }
+//   if(cnp){
+//     /* print camera parameters */
+//     for(j=0; j<m; ++j){
+//       ptr=p+cnp*j;
+//       for(ii=0; ii<cnp; ++ii)
+//         printf("%g ", ptr[ii]);
+//       printf("\n");
+//     }
+//   }
 
-  if(pnp){
-    /* 3D & 2D point parameters */
-    printf("\n\n\n# X Y Z  nframes  frame0 x0 y0  frame1 x1 y1 ...\n");
-    for(i=0; i<n; ++i){
-      ptr=p+cnp*m+i*pnp;
-      for(ii=0; ii<pnp; ++ii) // print 3D coordinates
-        printf("%g ", ptr[ii]);
+//   if(pnp){
+//     /* 3D & 2D point parameters */
+//     printf("\n\n\n# X Y Z  nframes  frame0 x0 y0  frame1 x1 y1 ...\n");
+//     for(i=0; i<n; ++i){
+//       ptr=p+cnp*m+i*pnp;
+//       for(ii=0; ii<pnp; ++ii) // print 3D coordinates
+//         printf("%g ", ptr[ii]);
 
-      nnz=sba_crsm_row_elmidxs(idxij, i, rcidxs, rcsubs); /* find nonzero x_ij, j=0...m-1 */
-      printf("%d ", nnz);
+//       nnz=sba_crsm_row_elmidxs(idxij, i, rcidxs, rcsubs); /* find nonzero x_ij, j=0...m-1 */
+//       printf("%d ", nnz);
 
-      for(j=0; j<nnz; ++j){ /* point i projecting on camera rcsubs[j] */
-        ptr=x + idxij->val[rcidxs[j]]*mnp;
+//       for(j=0; j<nnz; ++j){ /* point i projecting on camera rcsubs[j] */
+//         ptr=x + idxij->val[rcidxs[j]]*mnp;
 
-        printf("%d ", rcsubs[j]);
-        for(ii=0; ii<mnp; ++ii) // print 2D coordinates
-          printf("%g ", ptr[ii]);
-      }
-      printf("\n");
-    }
-  }
-}
+//         printf("%d ", rcsubs[j]);
+//         for(ii=0; ii<mnp; ++ii) // print 2D coordinates
+//           printf("%g ", ptr[ii]);
+//       }
+//       printf("\n");
+//     }
+//   }
+// }
 
 /* Compute e=x-y for two n-vectors x and y and return the squared L2 norm of e.
- * e can coincide with either x or y. 
+ * e can coincide with either x or y.
  * Uses loop unrolling and blocking to reduce bookkeeping overhead & pipeline
  * stalls and increase instruction-level parallelism; see http://www.abarnett.demon.co.uk/tutorial.html
  */
@@ -156,7 +156,7 @@ int j1, j2, j3, j4, j5, j6, j7;
 int blockn;
 register double sum0=0.0, sum1=0.0, sum2=0.0, sum3=0.0;
 
-  /* n may not be divisible by blocksize, 
+  /* n may not be divisible by blocksize,
    * go as near as we can first, then tidy up.
    */
   blockn = (n>>bpwr)<<bpwr; /* (n / blocksize) * blocksize; */
@@ -175,16 +175,16 @@ register double sum0=0.0, sum1=0.0, sum2=0.0, sum3=0.0;
 
   /*
    * There may be some left to do.
-   * This could be done as a simple for() loop, 
-   * but a switch is faster (and more interesting) 
+   * This could be done as a simple for() loop,
+   * but a switch is faster (and more interesting)
    */
 
   i=blockn;
-  if(i<n){ 
+  if(i<n){
   /* Jump into the case at the place that will allow
-   * us to finish off the appropriate number of items. 
+   * us to finish off the appropriate number of items.
    */
-    switch(n - i){ 
+    switch(n - i){
       case 7 : e[i]=x[i]-y[i]; sum0+=e[i]*e[i]; ++i;
       case 6 : e[i]=x[i]-y[i]; sum0+=e[i]*e[i]; ++i;
       case 5 : e[i]=x[i]-y[i]; sum0+=e[i]*e[i]; ++i;
@@ -217,7 +217,7 @@ register double norm, sum;
 register const double *Wptr, *auxptr;
 register double *eptr;
 
-  /* n may not be divisible by blocksize, 
+  /* n may not be divisible by blocksize,
    * go as near as we can first, then tidy up.
    */
   blockn = (n>>bpwr)<<bpwr; /* (n / blocksize) * blocksize; */
@@ -236,16 +236,16 @@ register double *eptr;
 
   /*
    * There may be some left to do.
-   * This could be done as a simple for() loop, 
-   * but a switch is faster (and more interesting) 
+   * This could be done as a simple for() loop,
+   * but a switch is faster (and more interesting)
    */
 
   i=blockn;
-  if(i<n){ 
+  if(i<n){
   /* Jump into the case at the place that will allow
-   * us to finish off the appropriate number of items. 
+   * us to finish off the appropriate number of items.
    */
-    switch(n - i){ 
+    switch(n - i){
       case 7 : e[i]=x[i]-y[i]; ++i;
       case 6 : e[i]=x[i]-y[i]; ++i;
       case 5 : e[i]=x[i]-y[i]; ++i;
@@ -440,7 +440,7 @@ static void sba_fdjac_x(
 
 typedef int (*PLS)(double *A, double *B, double *x, int m, int iscolmaj);
 
-/* Bundle adjustment on camera and structure parameters 
+/* Bundle adjustment on camera and structure parameters
  * using the sparse Levenberg-Marquardt as described in HZ p. 568
  *
  * Returns the number of iterations (>=0) if successfull, SBA_ERROR if failed
@@ -493,7 +493,7 @@ int sba_motstr_levmar_x(
                                                * If NULL, the jacobian is approximated by repetitive func calls and finite
                                                * differences. This is computationally inefficient and thus NOT recommended.
                                                */
-    void *adata,       /* pointer to possibly additional data, passed uninterpreted to func, fjac */ 
+    void *adata,       /* pointer to possibly additional data, passed uninterpreted to func, fjac */
 
     const int itmax,   /* I: maximum number of iterations. itmax==0 signals jacobian verification followed by immediate return */
     const int verbose, /* I: verbosity */
@@ -553,11 +553,11 @@ double *wght= /* work array for storing the weights computed from the covariance
 
 /* Of the above arrays, jac, e, W, Yj, wght are sparse and
  * U, V, eab, E, S, dp are dense. Sparse arrays (except Yj) are indexed
- * through idxij (see below), that is with the same mechanism as the input 
+ * through idxij (see below), that is with the same mechanism as the input
  * measurements vector x
  */
 
-double *pa, *pb, *ea, *eb, *dpa, *dpb; /* pointers into p, jac, eab and dp respectively */
+double *ea, *eb, *dpa, *dpb; /* pointers into p, jac, eab and dp respectively */
 
 /* submatrices sizes */
 int Asz, Bsz, ABsz, Usz, Vsz,
@@ -705,7 +705,7 @@ void *jac_adata;
    * of a certain W_ij and A_ij, B_ij pair, we should have p2-p1>=Wsz.
    * There are two cases:
    * a) Wsz>=ABsz: Then p1=W+k*Wsz and p2=jac+k*ABsz=W+Wsz+nvis*(Wsz-ABsz)+k*ABsz
-   *    for some k (0<=k<nvis), thus p2-p1=(nvis-k)*(Wsz-ABsz)+Wsz. 
+   *    for some k (0<=k<nvis), thus p2-p1=(nvis-k)*(Wsz-ABsz)+Wsz.
    *    The right side of the last equation is obviously > Wsz for all 0<=k<nvis
    *
    * b) Wsz<ABsz: Then p1=W+k*Wsz and p2=jac+k*ABsz=W+Wsz+k*ABsz and
@@ -718,7 +718,6 @@ void *jac_adata;
   jac=W + Wsz + ((Wsz>ABsz)? nvis*(Wsz-ABsz) : 0);
 
   /* set up auxiliary pointers */
-  pa=p; pb=p+m*cnp;
   ea=eab; eb=eab+m*cnp;
   dpa=dp; dpb=dp+m*cnp;
 
@@ -884,7 +883,7 @@ void *jac_adata;
       for(j=0; j<nnz; ++j){
         /* set ptr3 to point to B_ij, actual column number in rcsubs[j] */
         ptr3=jac + idxij.val[rcidxs[j]]*ABsz + Asz;
-      
+
         /* compute the UPPER TRIANGULAR PART of B_ij^T B_ij and add it to V_i */
         for(ii=0; ii<pnp; ++ii){
           for(jj=ii; jj<pnp; ++jj){
@@ -1059,8 +1058,8 @@ if(!(itno%100)){
            * YWt (and thus S_jk) is nonzero only if there exists a point that is visible in both the
            * j-th and k-th images
            */
-          
-          /* Recall that Y_ij is cnp x pnp and W_ik is cnp x pnp */ 
+
+          /* Recall that Y_ij is cnp x pnp and W_ik is cnp x pnp */
           _dblzero(YWt, YWtsz); /* clear YWt */
 
           for(i=0; i<nnz; ++i){
@@ -1094,7 +1093,7 @@ if(!(itno%100)){
               }
             }
           }
-		  
+
 		      /* since the linear system involving S is solved with lapack,
 		       * it is preferable to store S in column major (i.e. fortran)
 		       * order, so as to avoid unecessary transposing/copying.
@@ -1104,7 +1103,7 @@ if(!(itno%100)){
 #else
           ptr2=S + (j-mcon)*mmconxUsz + (k-mcon)*cnp; // set ptr2 to point to the beginning of block j,k in S
 #endif
-		  
+
           if(j!=k){ /* Kronecker */
             for(ii=0; ii<cnp; ++ii, ptr2+=Sdim)
               for(jj=0; jj<cnp; ++jj)
@@ -1291,7 +1290,7 @@ if(!(itno%100)){
 
           /* the test below is equivalent to the relative reduction of the RMS reprojection error: sqrt(p_eL2)-sqrt(pdp_eL2)<eps4*sqrt(p_eL2) */
           if(pdp_eL2-2.0*sqrt(p_eL2*pdp_eL2)<(eps4_sq-1.0)*p_eL2) stop=4;
-          
+
           for(i=0; i<nvars; ++i) /* update p's estimate */
             p[i]=pdp[i];
 
@@ -1373,7 +1372,7 @@ moredamping:
     info[8]=njev;
     info[9]=nlss;
   }
-                                                               
+
   //sba_print_sol(n, m, p, cnp, pnp, x, mnp, &idxij, rcidxs, rcsubs);
   retval=(stop!=7)?  itno : SBA_ERROR;
 
@@ -1407,7 +1406,7 @@ freemem_and_return: /* NOTE: this point is also reached via a goto! */
 }
 
 
-/* Bundle adjustment on camera parameters only 
+/* Bundle adjustment on camera parameters only
  * using the sparse Levenberg-Marquardt as described in HZ p. 568
  *
  * Returns the number of iterations (>=0) if successfull, SBA_ERROR if failed
@@ -1456,7 +1455,7 @@ int sba_mot_levmar_x(
                                                * If NULL, the jacobian is approximated by repetitive func calls and finite
                                                * differences. This is computationally inefficient and thus NOT recommended.
                                                */
-    void *adata,       /* pointer to possibly additional data, passed uninterpreted to func, fjac */ 
+    void *adata,       /* pointer to possibly additional data, passed uninterpreted to func, fjac */
 
     const int itmax,   /* I: maximum number of iterations. itmax==0 signals jacobian verification followed by immediate return */
     const int verbose, /* I: verbosity */
@@ -1500,7 +1499,7 @@ double *wght= /* work array for storing the weights computed from the covariance
 
 /* Of the above arrays, jac, e, wght are sparse and
  * U, ea, dp are dense. Sparse arrays are indexed through
- * idxij (see below), that is with the same mechanism as the input 
+ * idxij (see below), that is with the same mechanism as the input
  * measurements vector x
  */
 
@@ -1509,7 +1508,7 @@ int Asz, Usz,
     esz, easz, covsz;
 
 register double *ptr1, *ptr2, *ptr3, *ptr4, sum;
-struct sba_crsm idxij; /* sparse matrix containing the location of x_ij in x. This is also the location of A_ij 
+struct sba_crsm idxij; /* sparse matrix containing the location of x_ij in x. This is also the location of A_ij
                         * in jac, e_ij in e, etc.
                         * This matrix can be thought as a map from a sparse set of pairs (i, j) to a continuous
                         * index k and it is used to efficiently lookup the memory locations where the non-zero
@@ -1550,7 +1549,7 @@ void *jac_adata;
   Asz=mnp * cnp; Usz=cnp * cnp;
   esz=mnp; easz=cnp;
   covsz=mnp * mnp;
-  
+
   /* count total number of visible image points */
   for(i=nvis=0, jj=n*m; i<jj; ++i)
     nvis+=(vmask[i]!=0);
@@ -1784,7 +1783,7 @@ if(!(itno%100)){
         for(i=0; i<cnp; ++i)
           ptr1[i*cnp+i]+=mu;
       }
- 
+
       /* solve the linear systems U_j da_j = ea_j to compute the da_j */
       _dblzero(dp, mcon*cnp); /* no change for the first mcon camera params */
       for(j=nsolved=mcon; j<m; ++j){
@@ -1860,7 +1859,7 @@ if(!(itno%100)){
 
           /* the test below is equivalent to the relative reduction of the RMS reprojection error: sqrt(p_eL2)-sqrt(pdp_eL2)<eps4*sqrt(p_eL2) */
           if(pdp_eL2-2.0*sqrt(p_eL2*pdp_eL2)<(eps4_sq-1.0)*p_eL2) stop=4;
-          
+
           for(i=0; i<nvars; ++i) /* update p's estimate */
             p[i]=pdp[i];
 
@@ -1926,12 +1925,12 @@ if(!(itno%100)){
   }
   //sba_print_sol(n, m, p, cnp, 0, x, mnp, &idxij, rcidxs, rcsubs);
   retval=(stop!=7)?  itno : SBA_ERROR;
-                                                               
+
 freemem_and_return: /* NOTE: this point is also reached via a goto! */
 
    /* free whatever was allocated */
   free(jac); free(U);
-  free(e); free(ea);  
+  free(e); free(ea);
   free(dp);
   free(rcidxs); free(rcsubs);
 #ifndef SBA_DESTROY_COVS
@@ -1955,7 +1954,7 @@ freemem_and_return: /* NOTE: this point is also reached via a goto! */
 }
 
 
-/* Bundle adjustment on structure parameters only 
+/* Bundle adjustment on structure parameters only
  * using the sparse Levenberg-Marquardt as described in HZ p. 568
  *
  * Returns the number of iterations (>=0) if successfull, SBA_ERROR if failed
@@ -2001,7 +2000,7 @@ int sba_str_levmar_x(
                                                * If NULL, the jacobian is approximated by repetitive func calls and finite
                                                * differences. This is computationally inefficient and thus NOT recommended.
                                                */
-    void *adata,       /* pointer to possibly additional data, passed uninterpreted to func, fjac */ 
+    void *adata,       /* pointer to possibly additional data, passed uninterpreted to func, fjac */
 
     const int itmax,   /* I: maximum number of iterations. itmax==0 signals jacobian verification followed by immediate return */
     const int verbose, /* I: verbosity */
@@ -2045,7 +2044,7 @@ double *wght= /* work array for storing the weights computed from the covariance
 
 /* Of the above arrays, jac, e, wght are sparse and
  * V, eb, dp are dense. Sparse arrays are indexed through
- * idxij (see below), that is with the same mechanism as the input 
+ * idxij (see below), that is with the same mechanism as the input
  * measurements vector x
  */
 
@@ -2257,7 +2256,7 @@ void *jac_adata;
       for(j=0; j<nnz; ++j){
         /* set ptr3 to point to B_ij, actual column number in rcsubs[j] */
         ptr3=jac + idxij.val[rcidxs[j]]*Bsz;
-      
+
         /* compute the UPPER TRIANGULAR PART of B_ij^T B_ij and add it to V_i */
         for(ii=0; ii<pnp; ++ii){
           for(jj=ii; jj<pnp; ++jj){
@@ -2404,7 +2403,7 @@ if(!(itno%100)){
 
           /* the test below is equivalent to the relative reduction of the RMS reprojection error: sqrt(p_eL2)-sqrt(pdp_eL2)<eps4*sqrt(p_eL2) */
           if(pdp_eL2-2.0*sqrt(p_eL2*pdp_eL2)<(eps4_sq-1.0)*p_eL2) stop=4;
-          
+
           for(i=0; i<nvars; ++i) /* update p's estimate */
             p[i]=pdp[i];
 
@@ -2470,13 +2469,13 @@ if(!(itno%100)){
   }
   //sba_print_sol(n, m, p, 0, pnp, x, mnp, &idxij, rcidxs, rcsubs);
   retval=(stop!=7)?  itno : SBA_ERROR;
-                                                               
+
 freemem_and_return: /* NOTE: this point is also reached via a goto! */
 
    /* free whatever was allocated */
   free(jac); free(V);
-  free(e); free(eb);  
-  free(dp);               
+  free(e); free(eb);
+  free(dp);
   free(rcidxs); free(rcsubs);
 #ifndef SBA_DESTROY_COVS
   if(wght) free(wght);

@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////
-//// 
+////
 ////  Verification routines for the jacobians employed in the expert & simple drivers
 ////  for sparse bundle adjustment based on the Levenberg - Marquardt minimization algorithm
 ////  Copyright (C) 2005-2008 Manolis Lourakis (lourakis at ics forth gr)
@@ -38,14 +38,14 @@ void *ptr;
 
   ptr=(void *)malloc(sz);
   if(ptr==NULL){
-    fprintf(stderr, "SBA: memory allocation request for %u bytes failed in file %s, line %d, exiting", sz, file, line);
+    fprintf(stderr, "SBA: memory allocation request for %lu bytes failed in file %s, line %d, exiting", sz, file, line);
     exit(1);
   }
 
   return ptr;
 }
 
-/* 
+/*
  * Check the jacobian of a projection function in nvars variables
  * evaluated at a point p, for consistency with the function itself.
  * Expert version
@@ -149,7 +149,7 @@ int fvec_sz, pp_sz, fvecp_sz, numerr=0;
     nnz=sba_crsm_row_elmidxs(idxij, i, rcidxs, rcsubs); /* find nonzero A_ij, B_ij, j=0...m-1, actual column numbers in rcsubs */
     for(j=0; j<nnz; ++j){
       if(rcsubs[j]<mcon) continue; // A_ij, B_ij are zero
- 
+
       ptr2=err + idxij->val[rcidxs[j]]*mnp; // set ptr2 to point into err
 
       if(cnp){
@@ -267,7 +267,7 @@ union proj_projac{
 };
 
 
-/* 
+/*
  * Check the jacobian of a projection function in cnp+pnp variables
  * evaluated at a point p, for consistency with the function itself.
  * Simple version of the above, NOT to be called directly

@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////
-//// 
+////
 ////  CRS sparse matrices manipulation routines
 ////  Copyright (C) 2004-2008 Manolis Lourakis (lourakis at ics forth gr)
 ////  Institute of Computer Science, Foundation for Research & Technology - Hellas
@@ -51,46 +51,46 @@ void sba_crsm_free(struct sba_crsm *sm)
   sm->val=sm->colidx=sm->rowptr=NULL;
 }
 
-static void sba_crsm_print(struct sba_crsm *sm, FILE *fp)
-{
-register int i;
+// static void sba_crsm_print(struct sba_crsm *sm, FILE *fp)
+// {
+// register int i;nn
 
-  fprintf(fp, "matrix is %dx%d, %d non-zeros\nval: ", sm->nr, sm->nc, sm->nnz);
-  for(i=0; i<sm->nnz; ++i)
-    fprintf(fp, "%d ", sm->val[i]);
-  fprintf(fp, "\ncolidx: ");
-  for(i=0; i<sm->nnz; ++i)
-    fprintf(fp, "%d ", sm->colidx[i]);
-  fprintf(fp, "\nrowptr: ");
-  for(i=0; i<=sm->nr; ++i)
-    fprintf(fp, "%d ", sm->rowptr[i]);
-  fprintf(fp, "\n");
-}
+//   fprintf(fp, "matrix is %dx%d, %d non-zeros\nval: ", sm->nr, sm->nc, sm->nnz);
+//   for(i=0; i<sm->nnz; ++i)
+//     fprintf(fp, "%d ", sm->val[i]);
+//   fprintf(fp, "\ncolidx: ");
+//   for(i=0; i<sm->nnz; ++i)
+//     fprintf(fp, "%d ", sm->colidx[i]);
+//   fprintf(fp, "\nrowptr: ");
+//   for(i=0; i<=sm->nr; ++i)
+//     fprintf(fp, "%d ", sm->rowptr[i]);
+//   fprintf(fp, "\n");
+// }
 
 /* build a sparse CRS matrix from a dense one. intended to serve as an example for sm creation */
-static void sba_crsm_build(struct sba_crsm *sm, int *m, int nr, int nc)
-{
-int nnz;
-register int i, j, k;
+// static void sba_crsm_build(struct sba_crsm *sm, int *m, int nr, int nc)
+// {
+// int nnz;
+// register int i, j, k;
 
-  /* count nonzeros */
-  for(i=nnz=0; i<nr; ++i)
-    for(j=0; j<nc; ++j)
-      if(m[i*nc+j]!=0) ++nnz;
+//   /* count nonzeros */
+//   for(i=nnz=0; i<nr; ++i)
+//     for(j=0; j<nc; ++j)
+//       if(m[i*nc+j]!=0) ++nnz;
 
-  sba_crsm_alloc(sm, nr, nc, nnz);
+//   sba_crsm_alloc(sm, nr, nc, nnz);
 
-  /* fill up the sm structure */
-  for(i=k=0; i<nr; ++i){
-    sm->rowptr[i]=k;
-    for(j=0; j<nc; ++j)
-      if(m[i*nc+j]!=0){
-        sm->val[k]=m[i*nc+j];
-        sm->colidx[k++]=j;
-      }
-  }
-  sm->rowptr[nr]=nnz;
-}
+//   /* fill up the sm structure */
+//   for(i=k=0; i<nr; ++i){
+//     sm->rowptr[i]=k;
+//     for(j=0; j<nc; ++j)
+//       if(m[i*nc+j]!=0){
+//         sm->val[k]=m[i*nc+j];
+//         sm->colidx[k++]=j;
+//       }
+//   }
+//   sm->rowptr[nr]=nnz;
+// }
 
 /* returns the index of the (i, j) element. No bounds checking! */
 int sba_crsm_elmidx(struct sba_crsm *sm, int i, int j)
@@ -104,7 +104,7 @@ register int low, high, mid, diff;
   while(low<=high){
     /* following early termination test seems to actually slow down the search */
     //if(j<sm->colidx[low] || j>sm->colidx[high]) return -1; /* not found */
-    
+
     /* mid=low+((high-low)>>1) ensures no index overflows */
     mid=(low+high)>>1; //(low+high)/2;
     diff=j-sm->colidx[mid];
@@ -143,7 +143,7 @@ register int low, high, mid, diff;
   while(low<=high){
     /* following early termination test seems to actually slow down the search */
     //if(j<sm->colidx[low] || j>sm->colidx[high]) return -1; /* not found */
-    
+
     /* mid=low+((high-low)>>1) ensures no index overflows */
     mid=(low+high)>>1; //(low+high)/2;
     diff=j-sm->colidx[mid];
@@ -232,7 +232,7 @@ register int i, k, l;
 /* returns 1 if there exists a row i having columns j and k,
  * i.e. a row i s.t. elements (i, j) and (i, k) are nonzero;
  * 0 otherwise
- */ 
+ */
 int sba_crsm_common_row(struct sba_crsm *sm, int j, int k)
 {
 register int i, low, high, mid, diff;
@@ -326,7 +326,7 @@ int vidxs[7], /* max(6, 7) */
     printf("row %d\n", i);
     for(l=0; l<k; ++l){
       j=jidxs[l];
-      printf("%d %d  ", j, sm.val[vidxs[l]]); 
+      printf("%d %d  ", j, sm.val[vidxs[l]]);
     }
     printf("\n");
   }
@@ -336,7 +336,7 @@ int vidxs[7], /* max(6, 7) */
     printf("col %d\n", j);
     for(l=0; l<k; ++l){
       i=iidxs[l];
-      printf("%d %d  ", i, sm.val[vidxs[l]]); 
+      printf("%d %d  ", i, sm.val[vidxs[l]]);
     }
     printf("\n");
   }
