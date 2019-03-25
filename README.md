@@ -4,7 +4,7 @@ Building an image based modeling application based on insight3d
 COMPILING UNDEX LINUX
 ---------------------
 
-To compile insight3dng under Linux, you must have the following libraries: 
+To compile insight3dng under Linux, you must have the following libraries:
 
 	- opencv
 	- opengl
@@ -12,18 +12,19 @@ To compile insight3dng under Linux, you must have the following libraries:
 	- libxml2 (to parse xml files)
 	- lapack and blas (to do some math)
 	- libgtk+-2.0
+   - gsl (for sift dep)
 
-Also, pkg-config should know about those libraries. 
-To build, run make in insight3d subdirectory.  
+Also, pkg-config should know about those libraries.
+To build, run make in insight3d subdirectory.
 pkg-config needs .pc files for all library dependecies located in standard directories or identified
 by PKG_CONFIG_PATH
 
-	$ man pkg-config 
+	$ man pkg-config
 
 OPENCV INSTALL FOR UBUNTU
 -------------------------
 
-***Reference:***  
+***Reference:***
 https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-16-04/
 
 ***Update packages:***
@@ -32,17 +33,17 @@ https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-16-04/
 	$ sudo apt-get upgrade
 
 
-***OS libraries:***  
-Remove any previous installations of x264 
+***OS libraries:***
+Remove any previous installations of x264
 
 	$ sudo apt-get remove x264 libx264-dev
- 
+
 ***Dependencies now:***
- 
+
 	$ sudo apt-get install build-essential checkinstall cmake pkg-config yasm
 	$ sudo apt-get install git gfortran
 	$ sudo apt-get install libjpeg8-dev libjasper-dev libpng12-dev
- 
+
 If you are using Ubuntu 14.04
 
 	$ sudo apt-get install libtiff4-dev
@@ -59,7 +60,7 @@ If you are using Ubuntu 16.04
 	$ sudo apt-get install libvorbis-dev libxvidcore-dev
 	$ sudo apt-get install libopencore-amrnb-dev libopencore-amrwb-dev
 	$ sudo apt-get install x264 v4l-utils
- 
+
 ***Optional dependencies:***
 
 	$ sudo apt-get install libprotobuf-dev protobuf-compiler
@@ -76,7 +77,7 @@ If you are using Ubuntu 16.04
 	$ echo "# Virtual Environment Wrapper"  >> ~/.bashrc
 	$ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 	$ source ~/.bashrc
-  
+
 ***Python 2***
 
 	$ mkvirtualenv facecourse-py2 -p python2
@@ -94,8 +95,8 @@ If you are using Ubuntu 16.04
 ***OpenCV Source:***
 
 	$ git clone https://github.com/opencv/opencv.git
-	$ cd opencv 
-	$ git checkout 3.3.1 
+	$ cd opencv
+	$ git checkout 3.3.1
 	$ cd ..
 
 	$ git clone https://github.com/opencv/opencv_contrib.git
@@ -133,7 +134,7 @@ If you are using Ubuntu 16.04
 
 	$ cd ~/.virtualenvs/facecourse-py2/lib/python2.7/site-packages
 	$ ln -s /usr/local/lib/python2.7/dist-packages/cv2.so cv2.so
-  
+
 ***Python 3***
 
 	$ cd ~/.virtualenvs/facecourse-py3/lib/python3.6/site-packages
